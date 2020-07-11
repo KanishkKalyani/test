@@ -1,0 +1,16 @@
+.column-header {
+	width: 100%;
+	padding: 0px 20px;
+	margin: 5px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.column-delete-icon {
+	opacity: 0.3;
+	cursor: pointer;
+}
+
+.column-delete-icon:hover {
+	opacity: 1;
+}

@@ -1,0 +1,27 @@
+.legend-circle {
+	width: 20px;
+	height: 20px;
+	margin: 0px 10px;
+	border-radius: 50%;
+}
+
+.legend-circle-wrapper {
+	display: flex;
+	padding: 0px 20px;
+}
+
+.bgred {
+	background-color: rgba(255, 0, 0, 0.5);
+}
+
+.bggreen {
+	background-color: rgba(21, 255, 0, 0.4);
+}
+
+.bgyellow {
+	background-color: rgba(255, 247, 0, 0.4);
+}
+
+.bggray {
+	background-color: lightgray;
+}

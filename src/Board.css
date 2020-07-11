@@ -1,0 +1,39 @@
+.outer-container {
+	width: 100%;
+	height: 90%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	overflow-y: auto;
+}
+
+.buttons-wrapper {
+	padding: 5px;
+	width: 100%;
+	height: 5%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.legend {
+	width: 100%;
+	height: 5%;
+	padding: 0px 20px;
+	background-color: aliceblue;
+	display: flex;
+	align-items: center;
+}
+
+.column-wrapper {
+	height: 100%;
+	padding-top: 3%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.column {
+	height: 100%;
+	margin: 10px;
+}
