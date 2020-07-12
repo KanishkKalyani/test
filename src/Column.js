@@ -2,32 +2,71 @@ import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import TaskCard from "./TaskCard.js";
 import "./Column.css";
+import AddColumnPopup from "./AddColumnPopup.js";
 
 class Column extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			edit: false,
+		};
 	}
+
+	editColumnHandle = () => {
+		this.setState({ edit: true });
+	};
+
+	editingdone = () => {
+		this.setState({ edit: false });
+	};
+
 	render() {
-		const { id, column, TotalNoOfTasks, index, TotalNoOfColumns } = this.props;
+		const {
+			id,
+			column,
+			columns,
+			TotalNoOfTasks,
+			index,
+			TotalNoOfColumns,
+		} = this.props;
 		const noOfItems = column.items.length;
 		let heading = `${index + 1}. ${column.title}`;
 		return (
 			<>
-				<h2 className="column-header">
-					{heading}
-					<img
-						onClick={event =>
-							this.props.deleteColumnHandle(event, column, noOfItems)
-						}
-						src="https://img.icons8.com/fluent/24/000000/filled-trash.png"
-						alt="delete icon"
-						className="column-delete-icon"
-					/>
-				</h2>
+				{this.state.edit && (
+					<AddColumnPopup
+						edit={true}
+						columns={columns}
+						columnindex={index}
+						editColumnHandle={this.props.editColumnHandle}
+						editingdone={this.editingdone}></AddColumnPopup>
+				)}
+				<div className="column-header">
+					<h2 className="heading">{heading}</h2>
+					<span>
+						<abbr title="Edit">
+							<img
+								src="https://img.icons8.com/material/25/000000/edit--v1.png"
+								alt="edit icon"
+								className="column-edit-icon"
+								onClick={this.editColumnHandle}
+							/>
+						</abbr>
+						<abbr title="Delete">
+							<img
+								src="https://img.icons8.com/fluent/25/000000/filled-trash.png"
+								alt="delete icon"
+								className="column-delete-icon"
+								onClick={event =>
+									this.props.deleteColumnHandle(event, column, noOfItems)
+								}
+							/>
+						</abbr>
+					</span>
+				</div>
 				<div className="column">
 					<Droppable droppableId={id} key={id}>
-						{(provided, cardbody) => {
+						{(provided, snapshot) => {
 							return (
 								<div
 									{...provided.droppableProps}
@@ -37,7 +76,7 @@ class Column extends React.Component {
 											TotalNoOfTasks === 0
 												? "lightgray"
 												: index !== TotalNoOfColumns - 1
-												? cardbody.isDraggingOver
+												? snapshot.isDraggingOver
 													? "lightblue"
 													: noOfItems > TotalNoOfTasks / 2 + 1
 													? "rgba(255, 0, 0, 0.5)"
@@ -47,7 +86,7 @@ class Column extends React.Component {
 													: noOfItems === 0
 													? "lightgray"
 													: "rgba(21, 255, 0, 0.4)"
-												: cardbody.isDraggingOver
+												: snapshot.isDraggingOver
 												? "lightblue"
 												: noOfItems > TotalNoOfTasks / 2 + 1
 												? "rgba(21, 255, 0, 0.4)"
@@ -60,14 +99,15 @@ class Column extends React.Component {
 
 										padding: 5,
 										width: 250,
-										height: "80%",
-										overflowY: "auto",
+										minHeight: "100%",
 									}}>
 									{column.items.map((item, index) => {
 										return (
 											<TaskCard
+												columns={columns}
 												item={item}
 												index={index}
+												editTaskHandle={this.props.editTaskHandle}
 												columnindex={this.props.index}
 												deleteTaskHandle={
 													this.props.deleteTaskHandle

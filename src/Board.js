@@ -119,13 +119,6 @@ class App extends React.Component {
 		this.setState({ columns: columns });
 	};
 
-	deleteTask = (taskindex, columnindex) => {
-		let { columns } = this.state;
-
-		Object.entries(columns)[columnindex][1].items.splice(taskindex, 1);
-		this.setState({ columns: columns });
-	};
-
 	deleteColumnHandle = (__, column, noOfItems) => {
 		let confirmation;
 		if (noOfItems === 0) {
@@ -143,7 +136,18 @@ class App extends React.Component {
 	};
 
 	deleteTaskHandle = (__, taskindex, columnindex) => {
-		this.deleteTask(taskindex, columnindex);
+		let { columns } = this.state;
+
+		Object.entries(columns)[columnindex][1].items.splice(taskindex, 1);
+		this.setState({ columns: columns });
+	};
+
+	editColumnHandle = columns => {
+		this.setState({ columns: columns, addingTask: false });
+	};
+
+	editTaskHandle = columns => {
+		this.setState({ columns: columns, addingTask: false });
 	};
 
 	render() {
@@ -164,14 +168,16 @@ class App extends React.Component {
 				</div>
 
 				<div className="outer-container">
-					<div>
-						{this.state.addingTask && (
-							<AddTaskPopup InsertTask={this.InsertTask}></AddTaskPopup>
-						)}
-						{this.state.addingColumn && (
-							<AddColumnPopup InsertColumn={this.InsertColumn}></AddColumnPopup>
-						)}
-					</div>
+					{this.state.addingTask && (
+						<AddTaskPopup
+							edit={false}
+							InsertTask={this.InsertTask}></AddTaskPopup>
+					)}
+					{this.state.addingColumn && (
+						<AddColumnPopup
+							edit={false}
+							InsertColumn={this.InsertColumn}></AddColumnPopup>
+					)}
 
 					<DragDropContext onDragEnd={result => this.onDragEnd(result)}>
 						{Object.entries(columns).map(([id, column], index) => {
@@ -180,7 +186,10 @@ class App extends React.Component {
 									<Column
 										id={id}
 										column={column}
+										columns={columns}
 										index={index}
+										editTaskHandle={this.editTaskHandle}
+										editColumnHandle={this.editColumnHandle}
 										deleteColumnHandle={this.deleteColumnHandle}
 										deleteTaskHandle={this.deleteTaskHandle}
 										TotalNoOfColumns={Object.entries(columns).length}

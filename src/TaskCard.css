@@ -4,11 +4,24 @@
 	right: 10px;
 }
 
-.task-delete-icon {
-	opacity: 0.3;
+.task-delete-icon,
+.task-edit-icon {
+	opacity: 0.5;
 	cursor: pointer;
 }
 
 .task-delete-icon:hover {
 	opacity: 1;
+	filter: brightness(1.2);
+	transition: filter 0.3s ease-in;
+}
+
+.task-edit-icon:hover {
+	opacity: 1;
+}
+
+.task-edit-icon {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
 }

@@ -8,6 +8,7 @@
 	height: 50%;
 	display: flex;
 	margin: auto;
+	padding: 20px;
 	justify-content: center;
 	align-items: center;
 	border-radius: 50px;
@@ -32,6 +33,7 @@ form > label {
 	flex-direction: column;
 	align-items: center;
 	font-weight: 500;
+	caret-color: red;
 }
 
 form > label > input {
@@ -55,4 +57,5 @@ form > input,
 	border-radius: 15px;
 	color: white;
 	background-color: darkred;
+	cursor: pointer;
 }

@@ -9,7 +9,7 @@ class LegendBar extends React.Component {
 	render() {
 		return (
 			<>
-				<strong>Column Colors Legend:</strong>
+				<strong className="legend-circle-wrapper">Column Colors Legend:</strong>
 				<span className="legend-circle-wrapper">
 					Good:
 					<div className="legend-circle bggreen"></div>
@@ -19,7 +19,7 @@ class LegendBar extends React.Component {
 					<div className="legend-circle bgyellow"></div>
 				</span>
 				<span className="legend-circle-wrapper">
-					Cluttered:
+					Not Good:
 					<div className="legend-circle bgred"></div>
 				</span>
 				<span className="legend-circle-wrapper">
